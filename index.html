@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en" data-t="royal">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Wedding Invitation</title>
+  <meta name="theme-color" content="#a4144f">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Hind:wght@400;500&family=Tiro+Devanagari+Hindi&family=Pinyon+Script&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f4f1ef;
+      --sheet: #fbf9f7;
+      --ink: #3a2a2e;
+      --soft: #7a6a6d;
+      --line: #e2d6cf;
+      --gold: #b8892f;
+      --rose: #b3195a;
+      --wine: #5e0f2a;
+      --on-wine: #fbeee8;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Hind", system-ui, sans-serif;
+      --script: "Pinyon Script", "Snell Roundhand", cursive;
+      --cov: linear-gradient(180deg, #fbeee9, #f1d2c8);
+      --nm: #6e1228;
+      --dev: "Tiro Devanagari Hindi", "Noto Serif Devanagari", serif;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #1d1316;
+        --sheet: #2a1b20;
+        --ink: #f3e3dc;
+        --soft: #c7b3ad;
+        --line: #4a3239;
+        --gold: #d9a441
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --paper: #1d1316;
+      --sheet: #2a1b20;
+      --ink: #f3e3dc;
+      --soft: #c7b3ad;
+      --line: #4a3239;
+      --gold: #d9a441
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper) radial-gradient(circle at 1px 1px, var(--dots, transparent) 1px, transparent 0) 0 0/22px 22px;
+      color: var(--ink);
+      font: 400 1.05rem/1.7 var(--sans)
+    }
+
+    body.locked {
+      overflow: hidden
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      line-height: 1.1
+    }
+
+    h2 {
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      font-style: italic;
+      text-align: center;
+      color: var(--nm)
+    }
+
+    h2::after {
+      content: "";
+      display: block;
+      width: 110px;
+      height: 1px;
+      margin: .7rem auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent)
+    }
+
+    section {
+      padding: 4rem 1.25rem;
+      text-align: center
+    }
+
+    .sub {
+      color: var(--soft);
+      max-width: 32ch;
+      margin: .5rem auto 0
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px
+    }
+
+    /* gate */
+    .gate {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      background: var(--gate, #a4144f);
+      perspective: 1200px;
+      transition: opacity 1.2s ease 1.7s
+    }
+
+    .gate.open {
+      opacity: 0;
+      pointer-events: none
+    }
+
+    .gate.gone {
+      display: none
+    }
+
+    .env {
+      position: relative;
+      height: min(78svh, 600px);
+      aspect-ratio: 640/1125;
+      display: flex
+    }
+
+    .glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, #fff, #ffe9f0 60%, transparent 75%);
+      opacity: 0;
+      transition: opacity 1.2s ease .3s
+    }
+
+    .open .glow {
+      opacity: 1
+    }
+
+    .dr,
+    .dl {
+      flex: 1;
+      position: relative;
+      transition: transform 1.7s cubic-bezier(.7, 0, .2, 1);
+      background-color: #5a0f26;
+      background-image: var(--door);
+      background-size: 200% 100%
+    }
+
+    .dl {
+      transform-origin: left;
+      background-position: left center
+    }
+
+    .dr {
+      transform-origin: right;
+      background-position: right center
+    }
+
+    .open .dl {
+      transform: rotateY(-115deg)
+    }
+
+    .open .dr {
+      transform: rotateY(115deg)
+    }
+
+    .seal {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 5.4rem;
+      height: 5.4rem;
+      margin: -2.7rem 0 0 -2.7rem;
+      border-radius: 50%;
+      border: 0;
+      background: transparent;
+      color: transparent;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      transition: opacity .4s
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 235, 160, .7)
+      }
+
+      100% {
+        box-shadow: 0 0 0 22px rgba(255, 235, 160, 0)
+      }
+    }
+
+    .open .seal {
+      opacity: 0;
+      pointer-events: none
+    }
+
+    .cap {
+      position: absolute;
+      bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+      color: var(--capc, #ffd9e5);
+      font-size: .95rem;
+      transition: opacity .4s
+    }
+
+    .open .cap {
+      opacity: 0
+    }
+
+    /* cover card */
+    .cover {
+      min-height: 100svh;
+      display: grid;
+      place-items: center
+    }
+
+    .sheet {
+      position: relative;
+      width: min(86vw, 340px);
+      aspect-ratio: 9/16;
+      background: var(--cov);
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 40px rgba(60, 20, 30, .18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      padding: 1.5rem 1.2rem 2.4rem
+    }
+
+    .sheet::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid var(--gold);
+      opacity: .6
+    }
+
+    .garland {
+      width: 88%;
+      height: 76px;
+      background: radial-gradient(circle at 20% 60%, #e8a0b4 0 12px, transparent 13px), radial-gradient(circle at 50% 40%, #c9577a 0 17px, transparent 18px), radial-gradient(circle at 80% 60%, #f2c6d2 0 12px, transparent 13px), radial-gradient(circle at 35% 75%, #6b8f5e 0 9px, transparent 10px), radial-gradient(circle at 65% 75%, #6b8f5e 0 9px, transparent 10px)
+    }
+
+    .om {
+      width: 7rem;
+      height: 7rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font: 500 3.4rem var(--dev);
+      color: #fff;
+      background: radial-gradient(circle at 35% 30%, #f6e3a2, #c9a24b 65%, #8a6420);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--gold) 25%, transparent)
+    }
+
+    .om img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%
+    }
+
+    .shloka {
+      font: 400 1.05rem/1.9 var(--dev);
+      color: var(--nm)
+    }
+
+    .scrollhint {
+      position: absolute;
+      bottom: .9rem;
+      font: 500 .75rem var(--serif);
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--soft)
+    }
+
+    /* couple */
+    .arch {
+      width: min(80vw, 320px);
+      aspect-ratio: 3/4;
+      margin: 0 auto 1.5rem;
+      border-radius: 999px 999px 10px 10px;
+      overflow: hidden;
+      background: linear-gradient(170deg, #f1c9d4, #d98aa3 60%, #8f3a58);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font: italic 1.2rem var(--serif);
+      border: 1px solid var(--line)
+    }
+
+    .arch img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .names {
+      font-size: clamp(3rem, 13vw, 4.6rem);
+      font-style: italic
+    }
+
+    .om.im {
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
+      width: 10.5rem;
+      height: 13.4rem
+    }
+
+    .om.im img {
+      border-radius: 0;
+      object-fit: contain
+    }
+
+    .orn {
+      width: 150px;
+      height: 14px;
+      margin: 0 auto;
+      position: relative;
+      background: linear-gradient(var(--gold), var(--gold)) left center/42% 1px no-repeat, linear-gradient(var(--gold), var(--gold)) right center/42% 1px no-repeat
+    }
+
+    .orn::after {
+      content: "◆";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--gold);
+      font-size: .6rem
+    }
+
+    .hero2 {
+      position: relative;
+      container-type: inline-size;
+      width: min(92vw, 420px);
+      aspect-ratio: 660/1030;
+      margin: 0 auto;
+      background: #f6ecdf center/cover;
+      color: #6e1228
+    }
+
+    .hero2 .couple-art {
+      position: absolute;
+      top: 34%;
+      left: 13%;
+      width: 74%;
+      height: 53%;
+      object-fit: contain;
+      opacity: 0;
+      transform: translateY(calc(-100% - 34cqw))
+    }
+
+    .hero2 .iv {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 88%;
+      z-index: 1;
+      font: italic 500 3.6cqw/1.3 var(--serif)
+    }
+
+    .inv {
+      background: var(--cov);
+      padding-top: 2rem
+    }
+
+    .inv .garland {
+      margin: 0 auto 1rem;
+      width: min(94vw, 480px)
+    }
+
+    .it {
+      font: italic 500 1.2rem var(--serif);
+      color: var(--soft)
+    }
+
+    .sc {
+      font: 400 clamp(4rem, 19vw, 5.4rem)/1.05 var(--script);
+      color: var(--nm)
+    }
+
+    .sm {
+      font: 600 1.2rem var(--serif);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--nm)
+    }
+
+    .it2 {
+      font: italic 500 .95rem var(--serif);
+      color: var(--soft)
+    }
+
+    .amp {
+      font: italic 1.6rem var(--serif);
+      color: var(--soft)
+    }
+
+    .inv .line {
+      color: var(--nm)
+    }
+
+    .par {
+      color: var(--soft);
+      font-size: .95rem;
+      margin-top: .8rem
+    }
+
+    .line {
+      font: 400 1.35rem/1.5 var(--serif);
+      max-width: 24ch;
+      margin: 1.2rem auto 0
+    }
+
+    /* date */
+    .scratch {
+      position: relative;
+      width: min(88vw, 330px);
+      height: 190px;
+      margin: 1.2rem auto 0
+    }
+
+    .reveal {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-content: center;
+      gap: .2rem;
+      background: var(--sheet);
+      border: 1px solid var(--gold);
+      outline: 1px solid var(--gold);
+      outline-offset: -7px;
+      border-radius: 12px;
+      padding: 0 1rem
+    }
+
+    .reveal .a {
+      color: var(--soft);
+      font-size: .9rem
+    }
+
+    .reveal .b {
+      font: 500 2.1rem/1.1 var(--serif)
+    }
+
+    .reveal .c {
+      font: italic 1.05rem var(--serif);
+      color: var(--gold)
+    }
+
+    #foil {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      touch-action: none;
+      transition: opacity .8s
+    }
+
+    #foil.done {
+      opacity: 0;
+      pointer-events: none
+    }
+
+    .link {
+      background: none;
+      border: 0;
+      color: var(--soft);
+      font: italic 1rem var(--serif);
+      margin-top: .8rem;
+      cursor: pointer;
+      text-decoration: underline
+    }
+
+    .cd {
+      display: flex;
+      justify-content: center;
+      gap: .6rem;
+      margin-top: 1rem
+    }
+
+    .cd div {
+      width: 4rem;
+      padding: .5rem 0;
+      background: var(--sheet);
+      border: 1px solid var(--line);
+      border-radius: 6px
+    }
+
+    .cd b {
+      display: block;
+      font: 500 1.6rem/1.1 var(--serif)
+    }
+
+    .cd span {
+      font-size: .75rem;
+      color: var(--soft)
+    }
+
+    /* events */
+    .evs {
+      display: grid;
+      gap: 2rem;
+      max-width: 30rem;
+      margin: 2rem auto 0
+    }
+
+    .ev {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(40, 5, 20, .3)
+    }
+
+    .ev .im {
+      position: relative;
+      aspect-ratio: var(--ar, 4/3);
+      container-type: inline-size;
+      background: linear-gradient(160deg, #fbeee0, #f0b9a8);
+      background-size: cover;
+      background-position: center
+    }
+
+    .ev .tt {
+      position: absolute;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      font: 400 min(3rem, 13cqw)/1 var(--serif);
+      color: #6e1228;
+      text-shadow: 0 0 14px #fff8
+    }
+
+    .ev .pn {
+      position: relative;
+      background: var(--wine);
+      color: var(--on-wine);
+      padding: 1.6rem 1.2rem 2rem
+    }
+
+    .ev .pn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: rgba(255, 255, 255, .7)
+    }
+
+    .ev .tg {
+      font: italic 500 1.1rem var(--serif)
+    }
+
+    .ev .k {
+      font: 500 .72rem var(--serif);
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      opacity: .75;
+      margin-top: 1rem
+    }
+
+    .ev .v {
+      font: 500 1.3rem var(--serif)
+    }
+
+    /* venues */
+    .venue-hero {
+      max-width: 36rem;
+      margin: 0 auto 1.5rem;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 0;
+      box-shadow: none;
+      background: transparent
+    }
+
+    .venue-hero img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 18px rgba(90, 12, 38, .12));
+      background: transparent
+    }
+
+    .vn {
+      margin-top: 1.6rem;
+      max-width: 30rem;
+      margin-inline: auto;
+      padding: 1rem;
+      background: rgba(255, 255, 255, .25);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(40, 5, 20, .12)
+    }
+
+    .vn .pic {
+      aspect-ratio: 4/3;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--gold);
+      background: linear-gradient(160deg, #fbeee0, #f0b9a8);
+      margin-bottom: 1rem
+    }
+
+    .vn .pic img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .vn h3 {
+      font-size: 1.7rem
+    }
+
+    .vn p {
+      color: var(--soft);
+      font-size: .95rem
+    }
+
+    .btn {
+      display: inline-block;
+      border: 0;
+      border-radius: 999px;
+      background: var(--wine);
+      color: var(--on-wine);
+      font: 500 1rem var(--sans);
+      padding: .8rem 1.8rem;
+      margin-top: .8rem;
+      cursor: pointer;
+      text-decoration: none
+    }
+
+    .love {
+      font: italic 500 3.2rem var(--serif);
+      color: var(--rose)
+    }
+
+    /* petals + music */
+    #petals {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      pointer-events: none;
+      overflow: hidden
+    }
+
+    .pt {
+      position: absolute;
+      top: -24px;
+      border-radius: 70% 0 70% 0;
+      opacity: .85;
+      animation: fall linear infinite
+    }
+
+    @keyframes fall {
+      to {
+        transform: translate(var(--dx), 110vh) rotate(540deg)
+      }
+    }
+
+    .mus {
+      display: none;
+      position: fixed;
+      right: 1rem;
+      bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+      z-index: 40;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      background: var(--sheet);
+      color: var(--ink);
+      font: 500 .95rem var(--sans);
+      padding: .55rem 1rem;
+      cursor: pointer
+    }
+
+    .ready .mus {
+      display: block
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --cov: linear-gradient(180deg, #3a2329, #2a1b20);
+        --nm: #f0b9c4
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --cov: linear-gradient(180deg, #3a2329, #2a1b20);
+      --nm: #f0b9c4
+    }
+
+    /* themes */
+    :root[data-t="royal"] {
+      --paper: #f8f0e3;
+      --sheet: #fffaf0;
+      --ink: #3b1f1a;
+      --soft: #7d6155;
+      --line: #e3cf9f;
+      --gold: #b8892f;
+      --rose: #9a1c40;
+      --wine: #5a0f26;
+      --on-wine: #f9e9cf;
+      --cov: linear-gradient(180deg, #fff7e8, #f4e0b9);
+      --nm: #5a0f26;
+      --gate: radial-gradient(circle at 50% 35%, #f8e4b4, #cf9d4c 65%, #8d5c20);
+      --capc: #4a0b22;
+      --dots: rgba(184, 137, 47, .16)
+    }
+
+    :root[data-t="blush"] {
+      --paper: #fbf1ee;
+      --sheet: #fffaf8;
+      --ink: #3a2a2e;
+      --soft: #7a6a6d;
+      --line: #ecd3cc;
+      --gold: #b8892f;
+      --rose: #b3195a;
+      --wine: #5e0f2a;
+      --on-wine: #fbeee8;
+      --cov: linear-gradient(180deg, #fbeee9, #f1d2c8);
+      --nm: #6e1228;
+      --gate: linear-gradient(180deg, #d62d78, #a4144f 55%, #6e0b33);
+      --capc: #ffd9e5;
+      --dots: rgba(179, 25, 90, .07)
+    }
+
+    :root[data-t="night"] {
+      --paper: #171021;
+      --sheet: #241a35;
+      --ink: #f4e9d3;
+      --soft: #bfb0d3;
+      --line: #41335a;
+      --gold: #e2b85c;
+      --rose: #f0a8c4;
+      --wine: #2f1c4d;
+      --on-wine: #f4e9d3;
+      --cov: linear-gradient(180deg, #2b1e43, #1b1229);
+      --nm: #f1d9a2;
+      --gate: radial-gradient(circle at 50% 30%, #5a3f86, #1c1230 70%);
+      --capc: #ffd9e5;
+      --dots: rgba(226, 184, 92, .10)
+    }
+
+    .thm {
+      position: fixed;
+      left: 1rem;
+      bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+      z-index: 50;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      background: var(--sheet);
+      color: var(--ink);
+      font: 500 .95rem var(--sans);
+      padding: .55rem 1rem;
+      cursor: pointer
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      #petals {
+        display: none
+      }
+
+      .dl,
+      .dr,
+      .glow,
+      .gate {
+        transition-duration: .01s;
+        transition-delay: 0s
+      }
+
+      html {
+        scroll-behavior: auto
+      }
+    }
+  </style>
+  <script async src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <style id="theme">
+    :root {
+      --paper: #fbf4ea;
+      --sheet: #fffaf3;
+      --ink: #3b1f24;
+      --soft: #85686b;
+      --line: #ead5b3;
+      --gold: #c0902f;
+      --wine: #5a0c26
+    }
+
+    body {
+      background: radial-gradient(circle at 1px 1px, rgba(192, 144, 47, .22) 1px, transparent 1.6px) 0 0/24px 24px, linear-gradient(180deg, var(--paper), color-mix(in srgb, var(--paper) 90%, var(--gold)))
+    }
+
+    h2 {
+      font: 400 clamp(2.8rem, 11vw, 3.8rem)/1.15 var(--script);
+      font-style: normal;
+      background: linear-gradient(90deg, #8f5f10, #e9c76c 50%, #8f5f10);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    h2::after {
+      content: "";
+      display: block;
+      width: 110px;
+      height: 1px;
+      margin: .5rem auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent)
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #7a1034, #4a0a1f);
+      color: #ffe9b8;
+      border: 1px solid var(--gold);
+      box-shadow: 0 6px 18px rgba(90, 12, 38, .35);
+      transition: transform .2s
+    }
+
+    .btn:active {
+      transform: scale(.95)
+    }
+
+    .cd div {
+      background: linear-gradient(180deg, var(--sheet), color-mix(in srgb, var(--sheet) 85%, var(--gold)));
+      border: 1px solid var(--gold);
+      box-shadow: 0 4px 10px rgba(120, 80, 20, .15)
+    }
+
+    .ev {
+      border: 1px solid var(--gold)
+    }
+
+    .hero2 {
+      box-shadow: 0 18px 50px rgba(90, 12, 38, .25);
+      border-radius: 6px
+    }
+
+    .om.im img {
+      animation: float 4.5s ease-in-out infinite;
+      filter: drop-shadow(0 8px 14px rgba(120, 80, 10, .35))
+    }
+
+    @keyframes float {
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    .scratch::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      pointer-events: none;
+      background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .55) 48%, transparent 66%) 0 0/250% 100%;
+      animation: shine 2.4s linear infinite
+    }
+
+    .scratch:has(#foil.done)::after {
+      display: none
+    }
+
+    @keyframes shine {
+      from {
+        background-position: 150% 0
+      }
+
+      to {
+        background-position: -100% 0
+      }
+    }
+
+    /* smoother gate */
+    .gate {
+      background: radial-gradient(ellipse at 50% 28%, #e0367f, #a4144f 48%, #560a2a);
+      transition: opacity 1.3s ease 2s
+    }
+
+    .env {
+      animation: envIn 1.4s cubic-bezier(.3, 1.4, .5, 1) backwards;
+      transition: transform 2.8s cubic-bezier(.25, .1, .2, 1)
+    }
+
+    @keyframes envIn {
+      from {
+        opacity: 0;
+        transform: scale(.8) translateY(30px)
+      }
+    }
+
+    .open .env {
+      transform: scale(1.12)
+    }
+
+    .dl,
+    .dr {
+      transition: transform 2.3s cubic-bezier(.65, 0, .15, 1)
+    }
+
+    /* scroll reveal */
+    .rv {
+      opacity: 0;
+      filter: blur(6px);
+      transform: var(--from, translateY(40px));
+      transition: opacity .9s ease var(--d, 0s), filter .9s ease var(--d, 0s), transform 1.15s cubic-bezier(.3, 1.5, .5, 1) var(--d, 0s)
+    }
+
+    .rv.in {
+      opacity: 1;
+      filter: none;
+      transform: none
+    }
+
+    .hero2 .couple-art.falling {
+      animation: coupleDrop 1.9s cubic-bezier(.16, .76, .32, 1) both
+    }
+
+    @keyframes coupleDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(calc(-100% - 34cqw)) rotate(-8deg) scale(.88)
+      }
+
+      68% {
+        opacity: 1;
+        transform: translateY(16px) rotate(2deg) scale(1.02)
+      }
+
+      84% {
+        transform: translateY(-9px) rotate(-1deg) scale(1)
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1)
+      }
+    }
+
+    .pop {
+      --from: scale(.8) translateY(50px)
+    }
+
+    .drop {
+      --from: translateY(-70px) scale(.96)
+    }
+
+    .up {
+      --from: translateY(36px)
+    }
+
+    .fl {
+      --from: translateX(-70px) rotate(-5deg) scale(.9)
+    }
+
+    .fr {
+      --from: translateX(70px) rotate(5deg) scale(.9)
+    }
+
+    .ev .im {
+      transition: transform 1.9s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    .ev.rv:not(.in) .im {
+      transform: scale(1.2)
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .rv {
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        transition: none !important
+      }
+
+      .env,
+      .hero2 .couple-art,
+      .om.im img,
+      .scratch::after {
+        animation: none
+      }
+
+      .hero2 .couple-art {
+        opacity: 1;
+        transform: none
+      }
+    }
+  </style>
+  <style id="resp">
+    html,
+    body {
+      overflow-x: clip
+    }
+
+    .mus {
+      display: block
+    }
+
+    /* sunrise gate: light grows slowly, then floods the screen and reveals page one */
+    .dl,
+    .dr {
+      transition: transform 4.4s cubic-bezier(.5, 0, .2, 1)
+    }
+
+    .glow {
+      background: radial-gradient(circle, #fff 0, #fff1c2 30%, #ffc96b 58%, transparent 76%);
+      opacity: 0;
+      transform: scale(.6);
+      transition: opacity 3.6s ease-in .2s, transform 4.4s ease-in .2s
+    }
+
+    .open .glow {
+      opacity: 1;
+      transform: scale(1.7)
+    }
+
+    .gate::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, #fffaf0, #fff0d2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2.4s ease-in 1.6s
+    }
+
+    .gate.open::after {
+      opacity: 1
+    }
+
+    .gate {
+      transition: opacity 1.6s ease 3.8s
+    }
+
+    .open .env {
+      transform: scale(1.18);
+      transition: transform 4.8s cubic-bezier(.25, .1, .2, 1)
+    }
+
+    /* responsive */
+    .env {
+      height: min(80svh, 760px)
+    }
+
+    .sheet {
+      width: min(86vw, 440px, 51svh)
+    }
+
+    @media (min-width:768px) {
+      .hero2 {
+        width: min(70vw, 560px)
+      }
+
+      .evs {
+        max-width: 640px
+      }
+
+      .inv .garland {
+        width: min(60vw, 560px)
+      }
+
+      .line {
+        max-width: 30ch
+      }
+    }
+
+    @media (min-width:1100px) {
+      html {
+        font-size: 18px
+      }
+
+      .hero2 {
+        width: 600px
+      }
+
+      .evs {
+        max-width: 720px
+      }
+    }
+
+    @media (max-width:360px) {
+      html {
+        font-size: 15px
+      }
+
+      .cd {
+        gap: .4rem
+      }
+
+      .cd div {
+        width: 3.6rem
+      }
+    }
+
+    @media (max-height:520px) and (orientation:landscape) {
+      .env {
+        height: 88svh
+      }
+    }
+  </style>
+</head>
+
+<body class="locked">
+  <div id="petals" aria-hidden="true"></div>
+  <div class="gate" id="gate">
+    <div class="env">
+      <div class="glow"></div>
+      <div class="dl"></div>
+      <div class="dr"></div>
+      <button class="seal" id="seal" aria-label="Open the invitation">Open</button>
+    </div>
+    <p class="cap">Tap the seal to open</p>
+  </div>
+
+  <header class="cover">
+    <div class="sheet">
+      <div class="garland"></div>
+      <div class="om" id="om">ॐ</div>
+      <p class="shloka">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥</p>
+      <div class="orn"></div>
+      <p class="scrollhint">Scroll down</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="hero2" id="hero2">
+      <img class="couple-art" id="coupleImg" alt="">
+      <p class="iv">invite you to celebrate their wedding</p>
+    </div>
+  </section>
+
+  <section class="inv">
+    <div class="garland"></div>
+    <p class="it">Namaste</p>
+    <p class="sc" id="n1"></p>
+    <p class="amp">&amp;</p>
+    <p class="sc" id="n2"></p>
+    <p class="it" id="gl" style="margin-top:1rem"></p>
+    <p class="sm" id="gP"></p>
+    <p class="it2" id="gG"></p>
+    <p class="it" id="bl" style="margin-top:1rem"></p>
+    <p class="sm" id="bP"></p>
+    <p class="it2" id="bG"></p>
+    <p class="line">warmly invite you to celebrate the day they become one, surrounded by the people they love most.</p>
+    <p class="sub" style="margin-top:1.6rem">Scratch a little to reveal the date</p>
+    <div class="scratch">
+      <div class="reveal"><span class="a" id="dDays"></span><span class="b" id="dRange"></span><span class="c"
+          id="dFns"></span></div><canvas id="foil" aria-label="Scratch card"></canvas>
+    </div>
+    <button class="link" id="peel" type="button">Peel it again</button>
+    <p class="sub" style="margin-top:1.6rem">Counting down to the wedding</p>
+    <div class="cd" id="cd" role="timer">
+      <div><b>0</b><span>days</span></div>
+      <div><b>0</b><span>hours</span></div>
+      <div><b>0</b><span>mins</span></div>
+      <div><b>0</b><span>secs</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Events schedule</h2>
+    <div class="evs" id="evs"></div>
+  </section>
+
+  <section>
+    <div class="venue-hero"><img src="venue-image.png" alt="Wedding venue"></div>
+    <h2>Venues</h2>
+    <div id="vns"></div>
+  </section>
+
+  <section>
+    <p class="love">With love</p>
+    <p class="par" id="foot"></p>
+    <button class="btn" id="rsvp" type="button">Confirm on WhatsApp</button>
+  </section>
+
+  <button class="thm" id="thm" type="button">Theme</button>
+  <button class="mus" id="mus" type="button" aria-pressed="false" aria-label="Toggle background music">♪ Off</button>
+
+  <script>
+    /* Image files live in the assets folder beside this page. */
+    const ASSETS = { garland: "assets/garland.webp", ganesha: "assets/ganesha.webp", hero: "assets/hero.webp", haldi: "assets/haldi.webp", mehandi: "assets/mehandi.webp", wedding: "assets/wedding.webp", doors: "assets/doors.webp", couple: "assets/couple.png" };
+  </script>
+  <script>
+    /* ====== EDIT THIS BLOCK ====== */
+    const C = {
+      groom: "Krishna", bride: "Neha",
+      groomPar: "", groomGP: "", bridePar: "", brideGP: "",   // optional: add parents' / grandparents' lines
+      days: "Wednesday to Thursday", range: "25 – 26 November 2026", fns: "Haldi, Mehandi, Wedding",
+      target: "2026-11-25T10:00:00+05:30",
+      theme: "royal", themePicker: true,   // royal | blush | night  (set themePicker:false on the final page)
+      whatsapp: "",                       // country code + number, no + or spaces (RSVP button shows when filled)
+      music: "bishnu.mp4",                // local music file beside this HTML page
+      ganeshaImg: ASSETS.ganesha, heroImg: ASSETS.hero, garlandImg: ASSETS.garland, coupleImg: ASSETS.couple,
+      events: [
+        { n: "Haldi", x: "A joyful ceremony of turmeric, flowers and blessings.", d: "Wednesday, 25 November 2026", t: "", v: "Village Silve, Deoghar", img: ASSETS.haldi, ar: "16/9" },
+        { n: "Mehandi", x: "Henna, music and laughter with family.", d: "Wednesday, 25 November 2026", t: "", v: "Village Silve, Deoghar", img: ASSETS.mehandi, ar: "16/9" },
+        { n: "Wedding", x: "The pheras, the vows and a lifetime together.", d: "Thursday, 26 November 2026", t: "", v: "Village Silve, Deoghar", img: ASSETS.wedding, ar: "16/9" }
+      ],
+      venues: [
+        { n: "Village Silve", a: "PO-Simarjor, PS-Mohanpur, Deoghar", q: "Simarjor Mohanpur Deoghar Jharkhand", img: "venue-image.png" }
+      ]
+    };
+    /* ============================= */
+    const $ = id => document.getElementById(id);
+    $("coupleImg").src = C.coupleImg; $("coupleImg").alt = C.groom + " and " + C.bride + " in wedding attire";
+    $("n1").textContent = C.groom; $("n2").textContent = C.bride; $("gl").textContent = C.groom + ", son of"; $("gP").textContent = C.groomPar; $("gG").textContent = C.groomGP; $("bl").textContent = C.bride + ", daughter of"; $("bP").textContent = C.bridePar; $("bG").textContent = C.brideGP;
+    [["gl", "gP", "gG", C.groomPar], ["bl", "bP", "bG", C.bridePar]].forEach(a => { if (!a[3]) a.slice(0, 3).forEach(i => $(i).style.display = "none") });
+    if (!C.groomGP) $("gG").style.display = "none"; if (!C.brideGP) $("bG").style.display = "none";
+    $("dDays").textContent = C.days; $("dRange").textContent = C.range; $("dFns").textContent = C.fns;
+    $("foot").textContent = C.groom + " & " + C.bride;
+    document.title = C.groom + " & " + C.bride + " – Wedding Invitation";
+    if (C.ganeshaImg) { $("om").classList.add("im"); $("om").innerHTML = '<img src="' + C.ganeshaImg + '" alt="">' }
+    if (C.heroImg) $("hero2").style.backgroundImage = "url(" + C.heroImg + ")";
+    if (C.garlandImg) document.querySelectorAll(".garland").forEach(g => g.style.cssText = "aspect-ratio:3.2;height:auto;background:url(" + C.garlandImg + ") center/contain no-repeat");
+    $("evs").innerHTML = C.events.map(e => '<article class="ev"><div class="im" style="--ar:' + (e.ar || '4/3') + ';' + (e.img ? 'background-image:url(' + e.img + ');' : '') + '">' + (e.img ? '' : '<span class="tt" style="top:' + (e.ty || 14) + '%">' + e.n + '</span>') + '</div><div class="pn"><p class="tg">' + e.x + '</p><p class="k">Date</p><p class="v">' + e.d + '</p>' + (e.t ? '<p class="k">Time</p><p class="v">' + e.t + '</p>' : '') + '<p class="k">Venue</p><p class="v">' + e.v + '</p></div></article>').join("");
+    $("vns").innerHTML = C.venues.map(v => '<div class="vn">' + (v.img ? '<div class="pic"><img src="' + v.img + '" alt="' + v.n + ' venue"></div>' : '') + '<h3>' + v.n + '</h3><p>' + v.a + '</p><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(v.q) + '">View location</a></div>').join("");
+
+    /* petals */
+    (function () {
+      const h = $("petals"), col = ["#f2a7bd", "#e8668f", "#ffd3a1", "#fff0f3"];
+      for (let i = 0; i < 16; i++) {
+        const p = document.createElement("i"); p.className = "pt"; const s = 8 + Math.random() * 10;
+        p.style.cssText = "left:" + Math.random() * 100 + "%;width:" + s + "px;height:" + s * 1.3 + "px;background:" + col[i % 4] + ";animation-duration:" + (9 + Math.random() * 9) + "s;animation-delay:-" + Math.random() * 14 + "s;--dx:" + (Math.random() * 120 - 60) + "px"; h.appendChild(p)
+      }
+    })();
+
+    /* gate */
+    const body = document.body;
+    $("gate").style.setProperty("--door", "url(" + ASSETS.doors + ")");
+    function openGate() {
+      const g = $("gate"); if (g.classList.contains("open")) return;
+      g.classList.add("open"); body.classList.remove("locked"); body.classList.add("ready"); window.scrollTo(0, 0); playMusic(); celebrate();
+      setTimeout(() => g.classList.add("gone"), 5600);
+    }
+    $("seal").addEventListener("click", openGate);
+
+    /* scratch */
+    const cv = $("foil"), ctx = cv.getContext("2d"); let drawing = false, mv = 0;
+    function paint() {
+      cv.classList.remove("done");
+      const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+      cv.width = r.width * d; cv.height = r.height * d; ctx.globalCompositeOperation = "source-over"; ctx.setTransform(d, 0, 0, d, 0, 0);
+      const g = ctx.createLinearGradient(0, 0, r.width, r.height);
+      g.addColorStop(0, "#b8892f"); g.addColorStop(.5, "#f3dc92"); g.addColorStop(1, "#a87a22");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, r.width, r.height);
+      ctx.fillStyle = "rgba(90,55,10,.8)"; ctx.font = 'italic 500 24px "Cormorant Garamond",Georgia,serif'; ctx.textAlign = "center";
+      ctx.fillText("Scratch here", r.width / 2, r.height / 2 + 8);
+    }
+    function scr(e) { const r = cv.getBoundingClientRect(); ctx.globalCompositeOperation = "destination-out"; ctx.beginPath(); ctx.arc(e.clientX - r.left, e.clientY - r.top, 24, 0, 7); ctx.fill(); if (++mv % 12 === 0) chk() }
+    function chk() {
+      const w = cv.width, h = cv.height, d = ctx.getImageData(0, 0, w, h).data; let c = 0, n = 0;
+      for (let y = 0; y < h; y += 12)for (let x = 0; x < w; x += 12) { n++; if (d[(y * w + x) * 4 + 3] < 40) c++ }
+      if (c / n > .5 && !cv.classList.contains("done")) { cv.classList.add("done"); celebrate() }
+    }
+    cv.addEventListener("pointerdown", e => { sfxUnlock(); drawing = true; cv.setPointerCapture(e.pointerId); scr(e) });
+    cv.addEventListener("pointermove", e => { if (drawing) scr(e) });
+    ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { drawing = false; chk() }));
+    $("peel").addEventListener("click", paint);
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(paint);
+
+    /* countdown */
+    function tick() {
+      let s = Math.max(0, Math.floor((new Date(C.target) - Date.now()) / 1000));
+      const v = [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60];
+      document.querySelectorAll("#cd b").forEach((b, i) => b.textContent = v[i]);
+    }
+    tick(); setInterval(tick, 1000);
+
+    /* Music: use the configured file when playable, otherwise use the built-in melody. */
+    let musicOn = false, ac, master, timer, au, nextT = 0, step = 0, musicRequest = 0;
+    const SC = [261.63, 293.66, 329.63, 392, 440, 523.25, 587.33, 659.25], PH = [4, 5, 4, 2, 3, 2, 0, 1, 2, 4, 5, 7, 5, 4, 2, 0];
+    function note(f, t, d, v) { const o = ac.createOscillator(), g = ac.createGain(); o.type = "triangle"; o.frequency.value = f; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + .03); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(master); o.start(t); o.stop(t + d + .05) }
+    async function synthOn() {
+      if (!ac) {
+        ac = new (window.AudioContext || window.webkitAudioContext)(); master = ac.createGain(); master.gain.value = .5; master.connect(ac.destination);
+        [130.81, 196].forEach(f => { const o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = f; g.gain.value = .05; o.connect(g); g.connect(master); o.start() })
+      }
+      await ac.resume(); clearInterval(timer); nextT = ac.currentTime + .1;
+      timer = setInterval(() => { while (nextT < ac.currentTime + 1.5) { note(SC[PH[step % PH.length]], nextT, 1.6, .16); if (step % 4 === 0) note(SC[0] / 2, nextT, 2.4, .12); nextT += .6; step++ } }, 300);
+    }
+    function setMus(on) { musicOn = on; const b = $("mus"); b.textContent = on ? "♪ On" : "♪ Off"; b.setAttribute("aria-pressed", on) }
+    async function fallbackMusic(request) { if (au) { au.onerror = null; au.pause(); au = null } try { await synthOn(); if (request === musicRequest) setMus(true) } catch (e) { if (request === musicRequest) setMus(false) } }
+    async function playMusic() {
+      if (musicOn) { try { if (au) await au.play(); else if (ac) await ac.resume() } catch (e) { fallbackMusic(++musicRequest) } return }
+      const request = ++musicRequest;
+      if (C.music) {
+        const candidate = au || new Audio(C.music); au = candidate; candidate.loop = true;
+        candidate.onerror = () => { if (request === musicRequest && au === candidate) fallbackMusic(request) };
+        try { await candidate.play(); if (request === musicRequest) setMus(true); return } catch (e) { candidate.onerror = null; candidate.pause(); if (au === candidate) au = null }
+      }
+      await fallbackMusic(request);
+    }
+    function pauseMusic() { musicRequest++; if (au) { au.onerror = null; au.pause(); au = null } clearInterval(timer); if (ac) ac.suspend(); setMus(false) }
+    $("mus").addEventListener("click", () => musicOn ? pauseMusic() : playMusic());
+    document.addEventListener("visibilitychange", () => { if (document.hidden && musicOn) pauseMusic() });
+
+    /* theme switcher */
+    const TH = [["royal", "Royal gold"], ["blush", "Blush rose"], ["night", "Midnight"]];
+    let ti = Math.max(0, TH.findIndex(t => t[0] === C.theme));
+    function setTheme(n) { ti = n; document.documentElement.dataset.t = TH[n][0]; $("thm").textContent = "Theme: " + TH[n][1] }
+    setTheme(ti); $("thm").addEventListener("click", () => setTheme((ti + 1) % TH.length));
+    if (!C.themePicker) $("thm").style.display = "none";
+    /* RSVP */
+    if (!C.whatsapp) $("rsvp").style.display = "none";
+    $("rsvp").addEventListener("click", () => window.open("https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent("We are happy to confirm our presence at the wedding of " + C.groom + " & " + C.bride + "."), "_blank", "noopener"));
+  </script>
+  <script>
+    /* sound + side-cannon confetti when the card is scratched */
+    let sx, cf;
+    function sfxUnlock() { try { sx = sx || new (window.AudioContext || window.webkitAudioContext)(); sx.resume() } catch (e) { } }
+    function popSound() {
+      if (!sx) return; const t = sx.currentTime, o = sx.createOscillator(), g = sx.createGain();
+      o.frequency.setValueAtTime(520, t); o.frequency.exponentialRampToValueAtTime(90, t + .18);
+      g.gain.setValueAtTime(.7, t); g.gain.exponentialRampToValueAtTime(.001, t + .22);
+      o.connect(g); g.connect(sx.destination); o.start(t); o.stop(t + .25);
+      const n = sx.sampleRate * .25, buf = sx.createBuffer(1, n, sx.sampleRate), d = buf.getChannelData(0);
+      for (let i = 0; i < n; i++)d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3);
+      const src = sx.createBufferSource(), f = sx.createBiquadFilter(), g2 = sx.createGain();
+      src.buffer = buf; f.type = "highpass"; f.frequency.value = 1500; g2.gain.value = .5; src.connect(f); f.connect(g2); g2.connect(sx.destination); src.start(t);
+      [880, 1109, 1319, 1760].forEach((fr, i) => {
+        const q = sx.createOscillator(), h = sx.createGain(), a = t + .08 + i * .07;
+        q.type = "triangle"; q.frequency.value = fr; h.gain.setValueAtTime(.0001, a); h.gain.exponentialRampToValueAtTime(.18, a + .02); h.gain.exponentialRampToValueAtTime(.001, a + .35);
+        q.connect(h); h.connect(sx.destination); q.start(a); q.stop(a + .4)
+      });
+    }
+    function celebrate() {
+      popSound();
+      if (!window.confetti) return;
+      if (!cf) { const cn = document.createElement("canvas"); cn.style.cssText = "position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60"; document.body.appendChild(cn); cf = confetti.create(cn, { resize: true, useWorker: false }) }
+      const end = Date.now() + 3000, colors = ["#d4a73c", "#f2a7bd", "#b3195a", "#fff3d6", "#7a1034"];
+      (function f() {
+        cf({ particleCount: 3, angle: 60, spread: 60, origin: { x: 0, y: .7 }, colors, zIndex: 60, disableForReducedMotion: true });
+        cf({ particleCount: 3, angle: 120, spread: 60, origin: { x: 1, y: .7 }, colors, zIndex: 60, disableForReducedMotion: true });
+        if (Date.now() < end) requestAnimationFrame(f);
+      })();
+    }
+    /* reveal-on-scroll: images pop in, nothing is visible until it scrolls into view */
+    (function () {
+      const all = (q, f) => document.querySelectorAll(q).forEach(f);
+      const tag = (q, cls, d, step) => all(q, (e, i) => { e.classList.add("rv", cls); e.style.setProperty("--d", ((d || 0) + i * (step || 0)) + "s") });
+      [[".sheet", "pop", 0], [".sheet .garland", "drop", .4], [".sheet .om", "pop", .7], [".sheet .shloka", "up", 1], [".sheet .orn", "up", 1.15], [".scrollhint", "up", 1.4]]
+        .forEach(a => { tag(a[0], a[1], a[2]); all(a[0], e => e.classList.add("cv")) });
+      tag(".hero2", "pop"); tag(".hero2 .iv", "up", .7);
+      tag(".inv > .garland", "drop");
+      tag(".inv > .it,.inv > .sc,.inv > .amp,.inv > .sm,.inv > .it2,.inv > .line,.inv > .sub,.inv > .link", "up");
+      tag(".scratch", "pop"); tag(".cd div", "pop", 0, .12);
+      tag("section h2", "up");
+      tag(".ev", "fl"); all(".ev", (e, i) => { if (i % 2) { e.classList.remove("fl"); e.classList.add("fr") } });
+      tag(".vn", "up"); tag(".love", "pop"); tag("#rsvp", "up"); tag(".par", "up");
+      const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target) } }), { threshold: .18, rootMargin: "0px 0px -6% 0px" });
+      all(".rv:not(.cv)", e => io.observe(e));
+      const hero = document.querySelector(".hero2");
+      const couple = hero.querySelector(".couple-art");
+      const coupleIO = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          couple.classList.add("falling");
+          coupleIO.disconnect();
+        }
+      }, { threshold: .35, rootMargin: "0px 0px -8% 0px" });
+      coupleIO.observe(hero);
+      document.getElementById("seal").addEventListener("click", () => setTimeout(() => all(".cv", e => e.classList.add("in")), 4000));
+    })();
+  </script>
+  <script>
+  </script>
+</body>
+
+</html>
