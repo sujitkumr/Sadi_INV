@@ -1024,17 +1024,34 @@
       display: block
     }
 
+    .thm,
+    .mus {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease, visibility .25s
+    }
+
+    .controls-visible .thm,
+    .controls-visible .mus {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: none
+    }
+
     /* sunrise gate: light grows slowly, then floods the screen and reveals page one */
     .dl,
     .dr {
-      transition: transform 4.4s cubic-bezier(.5, 0, .2, 1)
+      transition: transform 5s cubic-bezier(.5, 0, .2, 1)
     }
 
     .glow {
       background: radial-gradient(circle, #fff 0, #fff1c2 30%, #ffc96b 58%, transparent 76%);
       opacity: 0;
       transform: scale(.6);
-      transition: opacity 3.6s ease-in .2s, transform 4.4s ease-in .2s
+      transition: opacity 4.1s ease-in .2s, transform 5s ease-in .2s
     }
 
     .open .glow {
@@ -1057,12 +1074,12 @@
     }
 
     .gate {
-      transition: opacity 1.6s ease 3.8s
+      transition: opacity 1.8s ease 4.4s
     }
 
     .open .env {
       transform: scale(1.18);
-      transition: transform 4.8s cubic-bezier(.25, .1, .2, 1)
+      transition: transform 5.4s cubic-bezier(.25, .1, .2, 1)
     }
 
     /* responsive */
@@ -1198,7 +1215,7 @@
 
   <section>
     <p class="love">With love</p>
-    <p class="par" id="foot"></p>
+    <p class="par" id="foot">Krishna & Neha</p>
     <button class="btn" id="rsvp" type="button">Confirm on WhatsApp</button>
   </section>
 
@@ -1226,7 +1243,7 @@
         { n: "Wedding", x: "The pheras, the vows and a lifetime together.", d: "Thursday, 26 November 2026", t: "", v: "Village Silve, Deoghar", img: ASSETS.wedding, ar: "16/9" }
       ],
       venues: [
-        { n: "Village Silve", a: "PO-Simarjor, PS-Mohanpur, Deoghar", q: "Simarjor Mohanpur Deoghar Jharkhand", img: "venue-image.png" }
+        { n: "Village Silve", a: "PO-Simarjor, PS-Mohanpur, Deoghar", q: "24.4603611, 86.8890278", img: "venue-image.png" }
       ]
     };
     /* ============================= */
@@ -1259,7 +1276,7 @@
     function openGate() {
       const g = $("gate"); if (g.classList.contains("open")) return;
       g.classList.add("open"); body.classList.remove("locked"); body.classList.add("ready"); window.scrollTo(0, 0); playMusic(); celebrate();
-      setTimeout(() => g.classList.add("gone"), 5600);
+      setTimeout(() => g.classList.add("gone"), 6400);
     }
     $("seal").addEventListener("click", openGate);
 
@@ -1387,6 +1404,11 @@
         }
       }, { threshold: .35, rootMargin: "0px 0px -8% 0px" });
       coupleIO.observe(hero);
+      const cover = document.querySelector(".cover");
+      const updateControls = () => document.body.classList.toggle("controls-visible", window.scrollY >= cover.offsetHeight);
+      window.addEventListener("scroll", updateControls, { passive: true });
+      window.addEventListener("resize", updateControls);
+      updateControls();
       document.getElementById("seal").addEventListener("click", () => setTimeout(() => all(".cv", e => e.classList.add("in")), 4000));
     })();
   </script>
